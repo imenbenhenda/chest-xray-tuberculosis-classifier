@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Détection Tuberculose</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        .result { font-size: 24px; margin-top: 20px; }
+        img { margin-top: 20px; max-width: 400px; }
+    </style>
+</head>
+<body>
+    <h1>TB-AI : Détection de la Tuberculose</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required />
+        <button type="submit">Analyser l'image</button>
+    </form>
+
+    {% if result %}
+    <div class="result">{{ result }}</div>
+    <div>
+        <p>Image originale :</p>
+        <img src="{{ image }}" alt="Image radiographie" />
+    </div>
+    <div>
+        <p>Grad-CAM :</p>
+        <img src="{{ gradcam }}" alt="Grad-CAM" />
+    </div>
+    {% endif %}
+
+</body>
+</html>
