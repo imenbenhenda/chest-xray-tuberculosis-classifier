@@ -1,16 +1,16 @@
-# Détection de la Tuberculose à partir de radiographies pulmonaires
+# Tuberculosis Detection from Chest X-ray Images
 
-## Objectif
-Développer un modèle de Deep Learning (CNN) capable de détecter la tuberculose à partir d’images radiographiques de la poitrine.  
-Le projet inclut également l’explicabilité via **Grad-CAM** pour visualiser les zones des poumons qui influencent la prédiction.
+## Objective
+Develop a Deep Learning (CNN) model capable of detecting tuberculosis from chest radiograph images.  
+The project includes explainability via **Grad-CAM** to visualize the lung regions that influence predictions.
 
 ## Dataset
 [TB Chest Radiography Database](https://www.kaggle.com/datasets/nih-chest-xrays/data)  
 
-- Images de poumons normaux et tuberculeux
-- Prétraitement : redimensionnement à 224x224, normalisation des pixels
+- Normal and tuberculosis lung images
+- Preprocessing: resizing to 224x224, pixel normalization
 
-Structure du dataset utilisée :
+Dataset structure used:
 TB_Chest_Radiography_Database/
 ├── Tuberculosis/
 │ ├── img_0001.png
@@ -21,18 +21,58 @@ TB_Chest_Radiography_Database/
 ├── Tuberculosis.metadata.xlsx
 ├── Normal.metadata.xlsx
 └── README.md.txt
-## Résultats
-| Métrique                 | Valeur |
-|---------------------------|--------|
-| Accuracy                  | ~92%   |
-| Précision (TB)            | 93%    |
-| Rappel (TB)               | 88%    |
-| F1-Score (TB)             | 90%    |
+## Model Architecture
+- CNN with multiple Conv2D + MaxPooling layers  
+- Final Dense layer for binary classification (TB / Normal)  
+- Activation: Sigmoid  
+- Optimizer: Adam  
+- Loss: Binary Crossentropy  
+- Explainability: Grad-CAM applied on the last convolutional layer
 
-## Modèle
-- Réseau CNN avec plusieurs couches Conv2D + MaxPooling  
-- Couche Dense finale pour classification binaire (TB / Normal)  
-- Fonction d’activation : Sigmoid  
-- Optimiseur : Adam  
-- Loss : Binary Crossentropy  
-- Explicabilité : Grad-CAM appliqué sur la dernière couche convolutionnelle  
+## Results
+| Metric                 | Value |
+|------------------------|-------|
+| Accuracy               | ~92%  |
+| Precision (TB)         | 93%   |
+| Recall (TB)            | 88%   |
+| F1-Score (TB)          | 90%   |
+
+## Key Features
+- 🏥 **Medical AI** - Automated TB detection from chest X-rays
+- 🔍 **Explainable AI** - Grad-CAM visualization for interpretability
+- 📊 **High Performance** - 92% accuracy in tuberculosis classification
+- 🛠️ **Production Ready** - End-to-end deep learning pipeline
+
+## Technologies Used
+- Python
+- TensorFlow/Keras
+- OpenCV
+- NumPy
+- Matplotlib
+- Scikit-learn
+
+## Installation & Usage
+```bash
+# Clone repository
+git clone https://github.com/your-username/tuberculosis-detection.git
+cd tuberculosis-detection
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run training
+python src/train.py
+
+Project Structure
+tuberculosis-detection/
+├── src/
+│   ├── train.py          # Model training script
+│   ├── predict.py        # Inference script
+│   └── grad_cam.py       # Explainability visualization
+├── models/               # Trained models
+├── data/                 # Dataset configuration
+├── notebooks/            # Exploration and analysis
+└── results/              # Output visualizations
+Author
+Imen Ben Henda - Computer Engineering Student
+
