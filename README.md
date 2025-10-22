@@ -6,7 +6,7 @@ This project implements a deep learning pipeline to detect tuberculosis (TB) fro
 ### Key components:
 1. **CNN model** trained to classify chest X-rays as either **Normal** or **Tuberculosis**
 2. **Grad-CAM visualizations** to highlight the lung regions influencing the model's predictions
-3. (Optional) **Web interface** for interactive diagnosis (Flask integration planned)
+3. **Web interface** for interactive diagnosis 
 
 ---
 
@@ -78,26 +78,21 @@ To interpret the model's decisions, Grad-CAM heatmaps are generated for validati
 - NumPy & Matplotlib
 - OpenCV (Grad-CAM)
 - Scikit-learn (metrics)
-- (Optional) Flask for web deployment
+- Flask for web deployment
 
 ---
 
-## 📂 Project Structure
 tuberculosis-detection/
-├ ── notebook/                       
-├      ├── explainability_gradcam.ipynb  # Grad-CAM visualization notebook
-├      ├── training.ipynb              # Model training notebook
-├            
-├── models/                     # Saved trained models (.keras format)
+├── app.py                          # Flask web application for interactive diagnosis
+├── explainability_gradcam.ipynb   # Grad-CAM visualization notebook
+├── training.ipynb                 # Model training notebook
+├── requirements.txt               # Python dependencies
+├── README.md                      # Project documentation
 │
-├── data/                       # Chest X-ray dataset (TB_Chest_Radiography_Database)
-│
-├── templates/                  # HTML templates for the web interface
-│   └── index.html              # Main page for image upload and prediction
-│── README.md                   # Project documentation
-│── requirements.txt            # Python dependencies
-│── app.py                      # Flask web application for interactive diagnosis
-  
+├── models/                        # Saved trained models (.keras format)
+├── data/                          # Chest X-ray dataset (TB_Chest_Radiography_Database)
+├── templates/                     # HTML templates for the web interface
+│   └── index.html                 # Main page for image upload and prediction
 ---
 
 ## 👩‍💻 Author
