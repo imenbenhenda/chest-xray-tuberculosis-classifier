@@ -1,71 +1,106 @@
-# Tuberculosis Detection using CNN and Explainable AI
+# 🧠 Tuberculosis Detection using CNN and Grad-CAM
 
-## Objective
-This project develops a complete Deep Learning pipeline for detecting tuberculosis (TB) from chest X-ray (CXR) images.
+## 🎯 Objective
+This project implements a deep learning pipeline to detect tuberculosis (TB) from chest X-ray (CXR) images using a custom Convolutional Neural Network (CNN) and explainable AI techniques.
 
-This system includes:
-1.  **A Convolutional Neural Network (CNN)** trained to classify X-rays as 'Normal' or 'Tuberculosis'.
-2.  **Explainable AI (XAI)** using **Grad-CAM** to visualize *why* the model makes a specific decision.
-3.  **A Flask Web Application** providing an interactive interface for users to upload an X-ray and receive an instant diagnosis and heatmap.
+### Key components:
+1. **CNN model** trained to classify chest X-rays as either **Normal** or **Tuberculosis**
+2. **Grad-CAM visualizations** to highlight the lung regions influencing the model's predictions
+3. (Optional) **Web interface** for interactive diagnosis (Flask integration planned)
 
-## Dataset
--   **Source:** [TB Chest Radiography Database (Kaggle)](https://www.kaggle.com/datasets/tawsifurrahman/tuberculosis-tb-chest-xray-dataset)
--   **Description:** A collection of 4200 chest X-ray images, split into 3500 'Normal' and 700 'Tuberculosis' cases.
--   **Preprocessing:**
-    -   Resizing images to **(150, 150)** pixels.
-    -   Normalization of pixel values (rescale to `[0, 1]`).
-    -   Data Augmentation (rotation, zoom, flip) applied to the training set to prevent overfitting.
+---
 
-## Model Architecture
--   **Type:** Custom Convolutional Neural Network (CNN)
--   **Input Shape:** `(150, 150, 3)`
--   **Structure:**
-    1.  `Conv2D(32)` + `BatchNormalization` + `MaxPooling2D`
-    2.  `Conv2D(64)` + `BatchNormalization` + `MaxPooling2D`
-    3.  `Conv2D(128)` + `BatchNormalization` + `MaxPooling2D`
-    4.  `Flatten`
-    5.  `Dense(128, activation='relu')`
-    6.  `Dropout(0.5)`
-    7.  `Dense(1, activation='sigmoid')`
--   **Optimizer:** `Adam(learning_rate=0.0001)`
--   **Loss Function:** `binary_crossentropy`
+## 📁 Dataset
+- **Source:** [TB Chest Radiography Database (Kaggle)](https://www.kaggle.com/datasets/tawsifurrahman/tuberculosis-tb-chest-xray-dataset)
+- **Total Images:** 4200
+  - **Normal:** 3500
+  - **Tuberculosis:** 700
+- **Preprocessing:**
+  - Resized to **150×150** pixels
+  - Pixel normalization to `[0, 1]`
+  - Data augmentation applied to training set (rotation, zoom, shift, flip)
 
-## Final Results
-The model was trained using callbacks for `EarlyStopping`, `ModelCheckpoint`, and `ReduceLROnPlateau`, achieving the following performance on the validation set:
+---
 
-| Metric | Value |
-| :--- | :--- |
-| **Validation Accuracy** | **98.69%** |
-| **Validation Loss** | **0.0360** |
+## ⚖️ Handling Class Imbalance
+The dataset is imbalanced (Normal: 3500, Tuberculosis: 700). To address this:
 
-These stable and high-performance results were achieved after optimizing the image size and learning rate.
+- **Class Weights:** Computed using `sklearn.utils.class_weight` and passed to the model during training to give more importance to the minority class.
+- **Data Augmentation:** Applied to the training set to increase diversity and reduce overfitting on the dominant class.
 
-## Key Features
--   🏥 **High Accuracy:** Achieves **98.7%** accuracy in classifying tuberculosis, providing a reliable diagnostic aid.
--   🔍 **Explainable AI (XAI):** Integrates Grad-CAM to produce heatmaps, showing exactly which parts of the lung the model focused on for its prediction.
--   🌐 **Interactive Demo:** A user-friendly web application built with Flask allows for easy testing by uploading an image.
--   🛠️ **Robust Training:** The model is optimized and stable, avoiding the common pitfalls of overfitting and instability.
+These strategies helped the model achieve high recall on tuberculosis cases, which is critical in medical diagnostics.
 
-## Technologies Used
--   Python
--   TensorFlow & Keras
--   Flask (Web Application)
--   OpenCV (for Grad-CAM)
--   NumPy
--   Matplotlib
+---
 
-## Project Structure
+## 🧱 Model Architecture
+- **Type:** Custom CNN built with TensorFlow/Keras
+- **Input Shape:** `(150, 150, 3)`
+- **Layers:**
+  1. `Conv2D(32)` → `BatchNormalization` → `MaxPooling2D`
+  2. `Conv2D(64)` → `BatchNormalization` → `MaxPooling2D`
+  3. `Conv2D(128)` → `BatchNormalization` → `MaxPooling2D`
+  4. `Flatten`
+  5. `Dense(128, relu)` → `Dropout(0.5)`
+  6. `Dense(1, sigmoid)`
+- **Optimizer:** `Adam` with learning rate `0.0001`
+- **Loss Function:** `binary_crossentropy`
+- **Metrics:** Accuracy, Precision, Recall, AUC
 
-Project Structure
+---
+
+## 📊 Final Results
+After training for 10 epochs with callbacks (`EarlyStopping`, `ModelCheckpoint`, `ReduceLROnPlateau`), the model achieved:
+
+| Metric               | Value     |
+|----------------------|-----------|
+| **Validation Accuracy** | **98.0%** |
+| **Validation Recall**   | **97.1%** |
+| **Validation Precision**| **86.1%** |
+| **Validation AUC**      | **99.6%** |
+| **Validation Loss**     | **0.0992** |
+
+Note: The original version of this project achieved 97% validation accuracy. After further optimization, the final model reached 98% accuracy with stronger recall and AUC.
+
+---
+
+## 🔍 Explainable AI (Grad-CAM)
+To interpret the model's decisions, Grad-CAM heatmaps are generated for validation images. These visualizations highlight the lung regions that influenced the prediction, helping build trust in the model’s output.
+
+- Implemented using TensorFlow and OpenCV
+- Displays both true and predicted labels with confidence scores
+- Heatmaps are overlaid on original X-ray images
+
+---
+
+## ⚙️ Technologies Used
+- Python
+- TensorFlow & Keras
+- NumPy & Matplotlib
+- OpenCV (Grad-CAM)
+- Scikit-learn (metrics)
+- (Optional) Flask for web deployment
+
+---
+
+## 📂 Project Structure
 tuberculosis-detection/
-├── src/
-│   ├── train.py          # Model training script
-│   ├── predict.py        # Inference script
-│   └── grad_cam.py       # Explainability visualization
-├── models/               # Trained models
-├── data/                 # Dataset configuration
-├── notebooks/            # Exploration and analysis
-└── results/              # Output visualizations
-Author
-Imen Ben Henda - Computer Engineering Student
+├ ── notebook/                       
+├      ├── explainability_gradcam.ipynb  # Grad-CAM visualization notebook
+├      ├── training.ipynb              # Model training notebook
+├            
+├── models/                     # Saved trained models (.keras format)
+│
+├── data/                       # Chest X-ray dataset (TB_Chest_Radiography_Database)
+│
+├── templates/                  # HTML templates for the web interface
+│   └── index.html              # Main page for image upload and prediction
+│── README.md                   # Project documentation
+│── requirements.txt            # Python dependencies
+│── app.py                      # Flask web application for interactive diagnosis
+  
+---
 
+## 👩‍💻 Author
+**Imen Ben Henda**  
+Computer Engineering Student  
+Focused on AI for healthcare and model interpretability
