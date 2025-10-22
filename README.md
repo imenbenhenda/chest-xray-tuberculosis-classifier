@@ -81,22 +81,23 @@ To interpret the model's decisions, Grad-CAM heatmaps are generated for validati
 - Flask for web deployment
 
 ---
-
+## 📁 Project Structure
 tuberculosis-detection/
-├── app.py                          # Flask web application for interactive diagnosis
-├── index.html                      # Main page for image upload and prediction
-├── requirements.txt                # Python dependencies
-├── README.md                       # Project documentation
-│
-├── notebook/                       # Jupyter notebooks
-│   ├── explainability_gradcam.ipynb  # Grad-CAM visualization notebook
-│   └── training.ipynb                # Model training notebook
-│
-├── models/                         # Saved trained models (.keras format)
-├── data/                           # Chest X-ray dataset (TB_Chest_Radiography_Database)
-├── templates/                      # HTML templates for the web interface
-│   └── index.html                  # HTML template used by Flask
-
+├── app.py                 # Flask web application
+├── requirements.txt       # Python dependencies
+├── README.md             # Project documentation
+├── templates/            # Flask templates directory
+│   └── index.html        # Web interface template
+├── static/               # Static files (CSS, JS, images)
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── script.js
+├── models/               # Trained model files
+├── data/                 # Dataset directory
+└── notebooks/            # Jupyter notebooks
+    ├── training.ipynb              # Model training notebook
+    └── explainability_gradcam.ipynb # Grad-CAM visualization notebook
 
 ## 👩‍💻 Author
 **Imen Ben Henda**  
