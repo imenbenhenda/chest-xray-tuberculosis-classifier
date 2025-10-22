@@ -88,11 +88,6 @@ tuberculosis-detection/
 ├── README.md             # Project documentation
 ├── templates/            # Flask templates directory
 │   └── index.html        # Web interface template
-├── static/               # Static files (CSS, JS, images)
-│   ├── css/
-│   │   └── style.css
-│   └── js/
-│       └── script.js
 ├── models/               # Trained model files
 ├── data/                 # Dataset directory
 └── notebooks/            # Jupyter notebooks
